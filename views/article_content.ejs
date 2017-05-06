@@ -1,0 +1,67 @@
+<%- include header%>
+<% data.forEach(function(data,index){%>
+<% var data_content = data.content.replace("\n","<br>")%>
+	<div class="article_content">
+		<h1><%= data.title%></h1>
+		<p id="p" style='display:none'><%= data_content%></p>
+		<p id="p1"></p>
+	</div>
+	<button id="test">喜欢 | 1</button>
+
+<% })%>
+
+
+<h2>留言区:</h2>
+<% if(comment){%>
+<% comment.forEach(function(data,index){%>
+	<div class="comment_show">
+		<div class="comment_user"><a href="#"><%= data.user_name%></a>说：</div>
+		<div class="comment_content"><p><%= data.content%></p></div>
+	</div>
+<% })%>
+<%}else{%>
+	<div>无，你说点吧</div>
+<%}%>
+
+<form method="post">
+	文章：<input type="text" id="a" class="post_title" name="title" defaultValue="aowei"/>
+	评论：<textarea name="comment" placeholder="说点什么吧" class='post_content'></textarea>
+	<input type="submit"/>
+</form>
+<script> 
+	document.getElementById('a').defaultValue=document.getElementsByTagName('h1')[1].innerText;
+</script>
+<script>
+	
+	document.getElementById('test').onclick = function(){
+		
+		var xhr = new XMLHttpRequest();
+
+		xhr.open("get","/ajax",true);
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				console.log('11');
+				if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304){
+					
+					var like = xhr.response;
+
+					document.getElementById('test').innerText = '不喜欢|0';
+				}else{
+					
+				}
+			}else{
+				
+			}
+		}
+
+		xhr.send(null);
+		
+	};
+
+	var p = document.getElementById('p').innerText;
+	document.getElementById('p1').innerHTML = p;
+
+</script>
+<%- include footer%>
+

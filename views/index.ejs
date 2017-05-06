@@ -1,0 +1,17 @@
+<%- include header%>
+<% if (user_name=='d'){%>
+
+<%}else{%>
+	welcome !!!!<%=user_name%>
+<%}%>
+<p>下面是您发表过的文章</p>
+
+<% data.forEach(function(data,index){%>
+  <p><h2><a href=<%= '/article_content' + '?id='+data.title%>><%= data.title %></a></h2></p>
+  <p class="info">
+    作者：<a href="#"><%= data.name %></a> | 
+    发布时间：<%= data.time.minute%>
+  </p>
+  <hr/>
+<% })%>
+<%- include footer%>

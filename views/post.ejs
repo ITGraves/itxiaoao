@@ -1,0 +1,32 @@
+<%- include header%>
+
+<style>
+	.spa{
+		margin: 5px 5px 5px 5px;
+		border:1px solid blue;
+		padding:5px;
+	}
+</style>
+
+<form method="post">
+	标题：<input type="text" name="title" class="post_title" placeholder="好东西得有个好题目"/>
+	<label>内容：</label><textarea placeholder="请写几个字" class='post_content' name='content'></textarea>
+	<input type='submit'/>
+</form>
+<br/>
+<h2>文章列表</h2>
+
+<% data.forEach(function(data,index){%>
+
+  <p><h2><a href=<%= '/article_content' + '?id='+data.title%>><%= data.title %></a></h2></p>
+  <p class="info">
+    作者：<a href="#"><%= data.name %></a> | 
+    发布时间：<%= data.time.minute%>
+  </p>
+  <hr/>
+<% })%>
+
+<span class="spa"><a href="/post?page=2">2</a></span>
+<%=pagelist.count %>
+<%=pagelist.limitNum %>
+<%- include footer%>
